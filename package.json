@@ -1,0 +1,23 @@
+{
+  "name": "dust",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "bin": {
+    "dust": "src/index.ts"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "commander": "^14.0.3",
+    "@clack/prompts": "^0.11.0"
+  }
+}
