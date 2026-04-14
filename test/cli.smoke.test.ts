@@ -25,12 +25,12 @@ describe("dust cli smoke", () => {
   it(
     "runs clean in dry-run mode",
     () => {
-    const process = Bun.spawnSync({
-      cmd: ["bun", "run", "src/index.ts", "clean", "cache", "--dry-run", "--stale-days", "1"],
-      cwd: path.resolve(import.meta.dir, ".."),
-      stdout: "pipe",
-      stderr: "pipe",
-    });
+      const process = Bun.spawnSync({
+        cmd: ["bun", "run", "src/index.ts", "clean", "cache", "--dry-run", "--stale-days", "1"],
+        cwd: path.resolve(import.meta.dir, ".."),
+        stdout: "pipe",
+        stderr: "pipe",
+      });
 
       expect(process.exitCode).toBe(0);
       const output = process.stdout.toString();

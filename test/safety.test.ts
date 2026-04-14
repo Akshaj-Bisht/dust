@@ -4,7 +4,7 @@ import {
   ensureSafeDeletePath,
   isCriticalPath,
   isWithinPath,
-} from "./safety";
+} from "../src/lib/safety";
 
 describe("safety helpers", () => {
   it("flags critical system paths", () => {

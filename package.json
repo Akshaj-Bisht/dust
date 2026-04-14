@@ -5,10 +5,12 @@
   "private": true,
   "scripts": {
     "start": "bun run src/index.ts",
-    "test": "bun test"
+    "test": "bun test",
+    "man": "man --local-file man/dust.1"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/react": "^19.2.14"
   },
   "bin": {
     "dust": "src/index.ts"
@@ -17,7 +19,9 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@clack/prompts": "^0.11.0",
     "commander": "^14.0.3",
-    "@clack/prompts": "^0.11.0"
+    "ink": "^7.0.0",
+    "react": "^19.2.5"
   }
 }

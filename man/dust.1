@@ -1,0 +1,142 @@
+.TH DUST 1 "April 2026" "dust 1.0.0" "User Commands"
+.SH NAME
+dust \- fast Linux disk scan and cleanup CLI
+.SH SYNOPSIS
+.B dust
+[\fIOPTION\fR]... [\fICOMMAND\fR]
+.br
+.B dust
+\fBscan\fR [\fIOPTION\fR]... [\fISCAN_PATH\fR]
+.br
+.B dust
+\fBclean\fR [\fIOPTION\fR]... [\fITARGET\fR]
+.SH DESCRIPTION
+.B dust
+is a terminal-first tool for scanning disk usage and cleaning removable junk
+on Linux systems. It supports fast directory analysis and safety-first cleanup
+flows with preview and confirmation.
+
+When launched as
+.B dust
+with no command in an interactive terminal, Dust opens a TUI home menu.
+By default this opens in the current terminal session.
+Set
+.B DUST_OPEN_NEW_WINDOW=1
+to try launching the TUI in a new terminal window.
+.SH COMMANDS
+.TP
+.B (no command)
+Open interactive TUI home menu (TTY sessions).
+.TP
+.B scan
+Scan directories and report the largest folders.
+.TP
+.B clean
+Clean cache, temp files, and logs with preview and confirmation support.
+.SH SCAN OPTIONS
+.TP
+.B --top \fICOUNT\fR
+Show top N folders (default: 10).
+.TP
+.B --depth \fILEVELS\fR
+Directory depth for the
+.B du
+engine (default: 6).
+.TP
+.B --engine \fINAME\fR
+Scan engine:
+.B auto
+,
+.B du
+, or
+.B walk
+ (default: auto).
+.TP
+.B --interactive
+Show an interactive picker after scan output.
+.TP
+.B --raw
+Show raw nested entries without deduplication.
+.TP
+.B --json
+Emit JSON output for scripts.
+.TP
+.B --verbose
+Print non-fatal scan errors.
+.SH CLEAN OPTIONS
+.TP
+.B --dry-run
+Preview cleanup results without deleting files.
+.TP
+.B --yes
+Skip confirmation prompt.
+.TP
+.B --stale-days \fIDAYS\fR
+For temp/log cleanup, only target entries older than N days (default: 3).
+.TP
+.B --verbose
+Print skipped paths and reasons.
+.SH CLEAN TARGETS
+.TP
+.B cache
+Clean user cache files under
+.I ~/.cache
+.
+.TP
+.B tmp
+Clean stale temporary files under
+.I /tmp
+.
+.TP
+.B logs
+Clean stale log files (user/system where accessible).
+.TP
+.B dev
+Clean developer junk directories (for example:
+.I node_modules, dist, build, .venv, target
+) from the current workspace.
+.TP
+.B all
+Run all cleanup targets.
+.SH SAFETY
+.B dust
+uses safety checks before deletion:
+.IP \(bu 2
+Dry-run preview before destructive cleanup
+.IP \(bu 2
+Interactive confirmation unless
+.B --yes
+is used
+.IP \(bu 2
+Critical path protections
+.IP \(bu 2
+Symlink-safe traversal behavior
+.SH EXAMPLES
+.TP
+Run a default scan:
+.B dust scan
+.TP
+Fast scan of home with
+.B du
+engine:
+.B dust scan ~ --engine du --depth 6 --top 20
+.TP
+Interactive scan mode:
+.B dust scan ~ --interactive
+.TP
+Preview all cleanup:
+.B dust clean all --dry-run
+.TP
+Clean cache without prompt:
+.B dust clean cache --yes
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+Invalid arguments, runtime error, or cancelled action.
+.SH SEE ALSO
+.BR du (1),
+.BR rm (1),
+.BR find (1)
